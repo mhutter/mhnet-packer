@@ -1,19 +1,25 @@
 ---
-name: Packer validate
+name: Packer
 
 on:
   push:
 
 jobs:
-  validate:
+  validate-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Validate Template
+      - name: packer validate
         uses: operatehappy/packer-github-actions@master
         with:
           command: validate
           arguments: -syntax-only
-          target: '*.json'
+          target: base.json
+
+      - name: packer build
+        uses: operatehappy/packer-github-actions@master
+        with:
+          command: build
+          target: base.json
