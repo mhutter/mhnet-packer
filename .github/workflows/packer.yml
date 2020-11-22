@@ -26,3 +26,19 @@ jobs:
           HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
         with:
           args: build base.json
+
+      - name: Clean up snapshots
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
+        run: |
+          curl -sS \
+            -H "Authorization: Bearer $HCLOUD_TOKEN" \
+            'https://api.hetzner.cloud/v1/images?label_selector=mhnet-image=base' | \
+          jq -r '.images|sort_by(.description)[:-5][].id' | \
+          while read -r iid; do
+            curl -sS \
+            -X DELETE \
+            -H "Authorization: Bearer $HCLOUD_TOKEN" \
+            "https://api.hetzner.cloud/v1/images/${iid}"
+          done
