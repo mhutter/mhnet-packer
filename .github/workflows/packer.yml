@@ -1,11 +1,10 @@
 ---
 name: Packer
 
-on:
-  push:
+on: [push, pull_request]
 
 jobs:
-  validate-build:
+  packer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -19,7 +18,10 @@ jobs:
           target: base.json
 
       - name: packer build
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: operatehappy/packer-github-actions@master
+        env:
+          HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
         with:
           command: build
           target: base.json
