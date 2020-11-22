@@ -1,0 +1,27 @@
+{
+  "builders": [
+    {
+      "type": "hcloud",
+      "image": "ubuntu-20.04",
+      "location": "fsn1",
+      "server_type": "cx11",
+      "snapshot_name": "packer-base-{{timestamp}}",
+      "snapshot_labels": {
+        "mhnet-image": "base"
+      },
+      "ssh_username": "root"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": ["DEBIAN_FRONTEND=noninteractive"],
+      "scripts": [
+        "provision/packages.sh",
+        "provision/base.sh",
+        "provision/sshd.sh",
+        "provision/sysprep.sh"
+      ]
+    }
+  ]
+}
