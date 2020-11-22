@@ -1,0 +1,25 @@
+---
+name: Prune
+
+on:
+  schedule:
+    - cron: '9 3 * * *'
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clean up snapshots
+        env:
+          HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
+        run: |
+          curl -sS \
+            -H "Authorization: Bearer $HCLOUD_TOKEN" \
+            'https://api.hetzner.cloud/v1/images?label_selector=mhnet-image=base' | \
+          jq -r '.images|sort_by(.description)[:-5][].id' | \
+          while read -r iid; do
+            curl -sS \
+            -X DELETE \
+            -H "Authorization: Bearer $HCLOUD_TOKEN" \
+            "https://api.hetzner.cloud/v1/images/${iid}"
+          done

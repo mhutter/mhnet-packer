@@ -1,7 +1,11 @@
 ---
 name: Packer
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '9 1 * * *'
 
 jobs:
   packer:
@@ -11,17 +15,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: packer validate
-        uses: operatehappy/packer-github-actions@master
+        uses: 'docker://hashicorp/packer:light'
         with:
-          command: validate
-          arguments: -syntax-only
-          target: base.json
+          args: validate -syntax-only base.json
 
       - name: packer build
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: operatehappy/packer-github-actions@master
+        uses: 'docker://hashicorp/packer:light'
         env:
           HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
         with:
-          command: build
-          target: base.json
+          args: build base.json
