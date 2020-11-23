@@ -13,6 +13,7 @@ packages_to_remove=(
   btrfs-progs
   cryptsetup
   firewalld
+  linux-firmware
   man-db
   snapd
   ufw
