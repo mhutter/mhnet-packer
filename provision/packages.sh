@@ -11,6 +11,8 @@ packages_to_install=(
 packages_to_remove=(
   apport
   aptitude
+  btrfs-progs
+  cryptsetup
   firewalld
   man-db
   snapd
