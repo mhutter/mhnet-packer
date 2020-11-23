@@ -5,7 +5,6 @@ packages_to_install=(
   apt-transport-https
   ca-certificates
   curl
-  ntp
   software-properties-common
 )
 packages_to_remove=(
