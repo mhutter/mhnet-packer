@@ -35,8 +35,9 @@ jobs:
           curl -sS \
             -H "Authorization: Bearer $HCLOUD_TOKEN" \
             'https://api.hetzner.cloud/v1/images?label_selector=mhnet-image=base' | \
-          jq -r '.images|sort_by(.description)[:-5][].id' | \
+          jq -r '.images|sort_by(.description)[:-3][].id' | \
           while read -r iid; do
+            echo "Removing snapshot ${iid}"
             curl -sS \
             -X DELETE \
             -H "Authorization: Bearer $HCLOUD_TOKEN" \
