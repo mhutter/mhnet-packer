@@ -35,6 +35,5 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 SyslogFacility AUTHPRIV
 UseDNS no
 UsePAM yes
-UsePrivilegeSeparation yes
 X11Forwarding no
 EOT
