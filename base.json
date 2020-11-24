@@ -22,6 +22,31 @@
         "provision/sshd.sh",
         "provision/sysprep.sh"
       ]
+    },
+    {
+      "type": "file",
+      "source": "files/sshd_config",
+      "destination": "/etc/ssh/sshd_config"
+    },
+    {
+      "type": "file",
+      "source": "files/auditd.conf",
+      "destination": "/etc/audit/auditd.conf"
+    },
+    {
+      "type": "file",
+      "source": "files/sysctl.conf",
+      "destination": "/etc/sysctl.d/99-dev-sec.conf"
+    },
+    {
+      "type": "file",
+      "source": "files/login.defs",
+      "destination": "/etc/login.defs"
+    },
+    {
+      "type": "file",
+      "source": "files/modprobe.conf",
+      "destination": "/etc/modprobe.d/dev-sec.conf"
     }
   ]
 }
