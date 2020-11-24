@@ -3,8 +3,10 @@ set -e -u -o pipefail -x
 
 packages_to_install=(
   apt-transport-https
+  auditd
   ca-certificates
   curl
+  rsyslog
   software-properties-common
 )
 packages_to_remove=(
