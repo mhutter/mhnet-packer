@@ -20,7 +20,9 @@ jobs:
           args: validate -syntax-only base.json
 
       - name: packer build
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          contains(['push', 'schedule'], github.event_name)
         uses: 'docker://hashicorp/packer:light'
         env:
           HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
