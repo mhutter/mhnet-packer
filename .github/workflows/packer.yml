@@ -22,7 +22,7 @@ jobs:
       - name: packer build
         if: >-
           github.ref == 'refs/heads/main' &&
-          contains(['push', 'schedule'], github.event_name)
+          (github.event_name == 'push' || github.event_name == 'schedule')
         uses: 'docker://hashicorp/packer:light'
         env:
           HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
