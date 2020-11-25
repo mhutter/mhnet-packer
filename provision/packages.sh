@@ -8,6 +8,7 @@ packages_to_install=(
   curl
   rsyslog
   software-properties-common
+  ufw
 )
 packages_to_remove=(
   apport
@@ -18,7 +19,6 @@ packages_to_remove=(
   linux-firmware
   man-db
   snapd
-  ufw
   unattended-upgrades
 )
 

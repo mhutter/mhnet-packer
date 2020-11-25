@@ -20,6 +20,7 @@
         "provision/packages.sh",
         "provision/base.sh",
         "provision/sshd.sh",
+        "provision/firewall.sh",
         "provision/sysprep.sh"
       ]
     },
